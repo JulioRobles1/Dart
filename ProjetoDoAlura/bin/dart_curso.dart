@@ -13,6 +13,27 @@ void main() {
   } else {
     isMadura = false;
   }
+
+  Fruta melancia = Fruta('Melancia', 1500.0, 'Verde', 'Doce', 40); 
+  melancia.estaMadura(43);
+
+  Legume legume1 = Legume("Macaxeira", 1200, "Marrom", true);
+  Fruta fruta1 = Fruta('Banana', 75, 'Amarela', 'Doce', 20);
+  Nozes noz1 = Nozes('Amendoim', 3.5, "Marrom", "Salgado", 16, 130);
+  Citricas citrica1 = Citricas("Limão", 100, "Verde", "Ácido", 10, 5.0);
+
+  legume1.printAlimento();
+
+  fruta1.printAlimento();
+
+  noz1.printAlimento();
+
+  citrica1.printAlimento();
+
+  legume1.cozinhar(); 
+
+
+  fruta1.fazerSuco(); 
 }
 
 bool funcEstaMadura(int dias) {
@@ -24,7 +45,7 @@ bool funcEstaMadura(int dias) {
 }
 
 mostrarMadura(String nome, int dias, {required String cor}) {
-  if (dias >= 30) { 
+  if (dias >= 30) {
     print("A $nome está madura.");
   } else {
     print("A $nome não está madura.");
@@ -39,15 +60,15 @@ int funcQuantosDiasMadura(int dias) {
   return quantosDiasFaltam;
 }
 
-class Fruta extends Alimento{
+class Fruta extends Alimento {
   String sabor;
   int diasDesdeColheita;
   bool? isMadura;
 
   Fruta(
-    String nome, double peso, String cor, this.sabor, this.diasDesdeColheita,
+      String nome, double peso, String cor, this.sabor, this.diasDesdeColheita,
       {this.isMadura})
-      : super(nome, peso, cor);
+      : super(nome, peso, sabor);
 
   void estaMadura(int diasParaMadura) {
     isMadura = diasDesdeColheita >= diasParaMadura;
@@ -55,59 +76,67 @@ class Fruta extends Alimento{
         ' $diasParaMadura dias para poder comer!'
         'Ela está Madura? $isMadura');
   }
-  void fazerSuco(){
-    print('Você fez um ótimo refrigerante de $nome');
+
+  void fazerSuco() {
+    print("Você fez um ótimo suco de $nome");
   }
 }
 
-class Alimento{
+class Alimento {
   String nome;
   double peso;
   String cor;
 
-  Alimento(this.nome,this.peso,this.cor);
-  }
+  Alimento(this.nome, this.peso, this.cor);
 
-class Legumes extends Alimento{
+  void printAlimento() {
+    print("Este/a $nome pesa $peso gramas e é $cor.");
+  }
+}
+
+class Legume extends Alimento {
   bool isPrecisaCozinhar;
 
-  Legumes(String nome,double peso,String cor,this.isPrecisaCozinhar)
-  : super(nome, peso, cor);
+  Legume(String nome, double peso, String cor, this.isPrecisaCozinhar)
+      : super(nome, peso, cor);
 
-  void cozinhar(){
-    if(isPrecisaCozinhar){
-      print('Pronto, o $nome está cozinhando!');
-    }else{
-      print('Nem precisa cozinhar!');
-     }
-   }
+  void cozinhar() {
+    (isPrecisaCozinhar)
+        ? print("Pronto, o $nome está cozinhado!")
+        : print("Nem precisou cozinhar");
+  }
 }
 
-// class Citricas extends Fruta{
-//   double nivelAzedo;
+class Citricas extends Fruta {
+  double nivelAzedo;
 
-//   Citricas(
-//     String nome, double peso, String cor, String sabor, int diasDesdeColheita, this.nivelAzedo)
-//     :super(nome,peso,cor,sabor, diasDesdeColheita)  ;
+  Citricas(String nome, double peso, String cor, String sabor,
+      int diaDesdeColheita, this.nivelAzedo)
+      : super(nome, peso, cor, sabor, diaDesdeColheita);
 
-//   void existeRefri(bool existe){
-//     if(existe){
-//       print('Existe Refrigerante de $nome');
-//     }else{
-//       print('Não existe Refrigerante de ');
-//     }
-//   }
+  void existeRefri(bool existe) {
+    if (existe) {
+      print('Existe refri de $nome');
+    } else {
+      print('Não existe refri de $nome');
+    }
+  }
 }
 
-// class Nozes extends Fruta{
-//   String nome;
-//   double peso; 
-//   String cor;
-//   String sabor;
-//   int diasDesdeColheita;
-//   bool? isMadura;
-//   double porcentagemOleoNatural;
-  
-//   Nozes(this.nome,this.peso,this.cor,this.diasDesdeColheita,
-//   this.isMadura,this.porcentagemOleoNatural);
-// }
+class Nozes extends Fruta {
+  double porcentagemOleoNatural;
+
+  Nozes(String nome, double peso, String cor, String sabor,
+      int diaDesdeColheita, this.porcentagemOleoNatural)
+      : super(nome, peso, cor, sabor, diaDesdeColheita);
+}
+
+
+
+abstract class Bolo{
+  void separarIngredientes();
+
+  void FazerMassa();
+
+  void assar();
+}

@@ -1,31 +1,130 @@
-// Definindo a classe Alimento
+import 'dart:convert';
+
+void main() {
+  // Declaração de variáveis para uma fruta.
+  String nome = "Laranja";
+  double peso = 100.2;
+  String cor = "Verde e Amarela";
+  String sabor = "Doce e cítrica";
+  int diasDesdeColheita = 40;
+  bool? isMadura; // Variável que pode ser nula (null).
+
+  // Verifica se a fruta está madura baseado nos dias desde a colheita.
+  if (diasDesdeColheita >= 30) {
+    isMadura = true;
+  } else {
+    isMadura = false;
+  }
+}
+
+// Função que verifica se a fruta está madura baseada nos dias desde a colheita.
+bool funcEstaMadura(int dias) {
+  if (dias >= 30) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Função que exibe se a fruta está madura e a cor dela.
+mostrarMadura(String nome, int dias, {required String cor}) {
+  if (dias >= 30) {
+    print("A $nome está madura.");
+  } else {
+    print("A $nome não está madura.");
+  }
+  print("A $nome é $cor.");
+}
+
+// Função que calcula quantos dias faltam para a fruta estar madura.
+int funcQuantosDiasMadura(int dias) {
+  int diasParaMadura = 30;
+  int quantosDiasFaltam = diasParaMadura - dias;
+  return quantosDiasFaltam;
+}
+
+// Classe Fruta que herda de Alimento.
+class Fruta extends Alimento {
+  String sabor;
+  int diasDesdeColheita;
+  bool? isMadura;
+
+  // Construtor da classe Fruta que inicializa os atributos.
+  Fruta(
+    String nome, double peso, String cor, this.sabor, this.diasDesdeColheita,
+      {this.isMadura})
+      : super(nome, peso, cor);
+
+  // Método para verificar se a fruta está madura.
+  void estaMadura(int diasParaMadura) {
+    isMadura = diasDesdeColheita >= diasParaMadura;
+    print('A sua $nome foi colhida a $diasDesdeColheita dias e precisa de'
+        ' $diasParaMadura dias para poder comer!'
+        'Ela está Madura? $isMadura');
+  }
+
+  // Método para simular a ação de fazer suco.
+  void fazerSuco() {
+    print('Você fez um ótimo refrigerante de $nome');
+  }
+}
+
+// Classe Alimento, base para outras classes de alimentos.
 class Alimento {
   String nome;
   double peso;
   String cor;
 
-  // Construtor da classe Alimento
+  // Construtor da classe Alimento.
   Alimento(this.nome, this.peso, this.cor);
 }
 
-// Definindo a classe Legumes que estende Alimento
+// Classe Legumes que herda de Alimento.
 class Legumes extends Alimento {
   bool isPrecisaCozinhar;
 
-  // Construtor da classe Legumes
+  // Construtor da classe Legumes.
   Legumes(String nome, double peso, String cor, this.isPrecisaCozinhar)
-      // Chamando o construtor da superclasse Alimento
-      : super(nome, peso, cor);
+  : super(nome, peso, cor);
+
+  // Método para simular a ação de cozinhar o legume.
+  void cozinhar() {
+    if (isPrecisaCozinhar) {
+      print('Pronto, o $nome está cozinhando!');
+    } else {
+      print('Nem precisa cozinhar!');
+    }
+  }
 }
 
-// Função principal
-void main() {
-  // Criando uma instância da classe Legumes
-  Legumes cenoura = Legumes("Cenoura", 0.2, "Laranja", true);
+// Classe Citricas que herda de Fruta.
+class Citricas extends Fruta {
+  double nivelAzedo;
 
-  // Imprimindo informações sobre a instância de Legumes
-  print("Nome: ${cenoura.nome}");
-  print("Peso: ${cenoura.peso}");
-  print("Cor: ${cenoura.cor}");
-  print("Precisa cozinhar? ${cenoura.isPrecisaCozinhar}");
+  // Construtor da classe Citricas.
+  Citricas(
+    String nome, double peso, String cor, String sabor, int diasDesdeColheita, this.nivelAzedo)
+      : super(nome, peso, cor, sabor, diasDesdeColheita);
+
+  // Método que verifica se existe refrigerante da fruta cítrica.
+  void existeRefri(bool existe) {
+    if (existe) {
+      print('Existe Refrigerante de $nome');
+    } else {
+      print('Não existe Refrigerante de $nome');
+    }
+  }
 }
+
+// Classe Nozes que herda de Fruta.
+class Nozes extends Fruta {
+  double porcentagemOleoNatural;
+
+  // Construtor da classe Nozes.
+  Nozes(String nome, double peso, String cor, String sabor, int diasDesdeColheita,
+    this.porcentagemOleoNatural)
+    : super(nome, peso, cor, sabor, diasDesdeColheita);
+}
+
+// No código acima, definimos várias classes e funções para representar e manipular alimentos, frutas, legumes e nozes.
+// Usamos conceitos de herança para criar uma hierarquia de classes e métodos para realizar operações específicas em cada tipo de alimento.
