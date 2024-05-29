@@ -83,20 +83,20 @@ class Legumes extends Alimento{
    }
 }
 
-class Citricas extends Fruta{
-  double nivelAzedo;
+// class Citricas extends Fruta{
+//   double nivelAzedo;
 
-  Citricas(
-    String nome, double peso, String cor, String sabor, int diasDesdeColheita, this.nivelAzedo)
-    :super(nome,peso,cor,sabor, diasDesdeColheita)  ;
+//   Citricas(
+//     String nome, double peso, String cor, String sabor, int diasDesdeColheita, this.nivelAzedo)
+//     :super(nome,peso,cor,sabor, diasDesdeColheita)  ;
 
-  void existeRefri(bool existe){
-    if(existe){
-      print('Existe Refrigerante de $nome');
-    }else{
-      print('Não existe Refrigerante de ');
-    }
-  }
+//   void existeRefri(bool existe){
+//     if(existe){
+//       print('Existe Refrigerante de $nome');
+//     }else{
+//       print('Não existe Refrigerante de ');
+//     }
+//   }
 }
 
 // class Nozes extends Fruta{
