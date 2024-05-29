@@ -56,7 +56,7 @@ class Fruta extends Alimento{
         'Ela está Madura? $isMadura');
   }
   void fazerSuco(){
-    print('Você fez um ótimo suco de $nome');
+    print('Você fez um ótimo refrigerante de $nome');
   }
 }
 
@@ -94,7 +94,7 @@ class Citricas extends Fruta{
     if(existe){
       print('Existe Refrigerante de $nome');
     }else{
-      print('Não existe Refrigerante de $nome');
+      print('Não existe Refrigerante de ');
     }
   }
 }
