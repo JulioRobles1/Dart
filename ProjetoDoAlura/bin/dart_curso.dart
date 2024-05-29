@@ -99,15 +99,15 @@ class Citricas extends Fruta{
   }
 }
 
-class Nozes extends Fruta{
-  String nome;
-  double peso; 
-  String cor;
-  String sabor;
-  int diasDesdeColheita;
-  bool? isMadura;
-  double porcentagemOleoNatural;
+// class Nozes extends Fruta{
+//   String nome;
+//   double peso; 
+//   String cor;
+//   String sabor;
+//   int diasDesdeColheita;
+//   bool? isMadura;
+//   double porcentagemOleoNatural;
   
-  Nozes(this.nome,this.peso,this.cor,this.diasDesdeColheita,
-  this.isMadura,this.porcentagemOleoNatural);
-}
+//   Nozes(this.nome,this.peso,this.cor,this.diasDesdeColheita,
+//   this.isMadura,this.porcentagemOleoNatural);
+// }
