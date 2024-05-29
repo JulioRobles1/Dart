@@ -1,0 +1,31 @@
+// Definindo a classe Alimento
+class Alimento {
+  String nome;
+  double peso;
+  String cor;
+
+  // Construtor da classe Alimento
+  Alimento(this.nome, this.peso, this.cor);
+}
+
+// Definindo a classe Legumes que estende Alimento
+class Legumes extends Alimento {
+  bool isPrecisaCozinhar;
+
+  // Construtor da classe Legumes
+  Legumes(String nome, double peso, String cor, this.isPrecisaCozinhar)
+      // Chamando o construtor da superclasse Alimento
+      : super(nome, peso, cor);
+}
+
+// Função principal
+void main() {
+  // Criando uma instância da classe Legumes
+  Legumes cenoura = Legumes("Cenoura", 0.2, "Laranja", true);
+
+  // Imprimindo informações sobre a instância de Legumes
+  print("Nome: ${cenoura.nome}");
+  print("Peso: ${cenoura.peso}");
+  print("Cor: ${cenoura.cor}");
+  print("Precisa cozinhar? ${cenoura.isPrecisaCozinhar}");
+}
