@@ -1,27 +1,30 @@
 void main() {
-   //escolherMeioTransporte(0);
-  escolherMeioTransporteEnum(Transporte.carro);
+  escolherMeioTransporte(Transporte.aviao);
+
+  Set<String> registrosVisitados = <String>{};
+   
+  registrosVisitados = registrarDestinos("São Paulo", registrosVisitados);
+  registrosVisitados = registrarDestinos("Recife", registrosVisitados);
+  registrosVisitados = registrarDestinos("Rio de Janeiro", registrosVisitados);
+  registrosVisitados = registrarDestinos("São Paulo", registrosVisitados);
+
+  print(registrosVisitados);
+
+  Map<String, double> registrarPrecos = {};
+
+  registrarPrecos["São Paulo"] = 1200;
+  registrarPrecos["Rio de Janeiro"] = 1500;
+  print(registrarPrecos);
 }
 
-void escolherMeioTransporte(int locomocao){
-  if (locomocao == 0){
-    print("Vou de CARRO para aventura!");
-  } else if (locomocao == 1){
-    print("Vou de BIKE para aventura!");
-  }else{
-    print("Vou para aventura!");
-  }
+
+
+
+Set<String>registrarDestinos(String destino, Set<String> banco){
+  banco.add(destino);
+  return banco;
 }
-
-void escolherMeioTransporteEnum(Transporte locomocao){
-//  if (locomocao == Transporte.carro){
-//      print("Vou de carro para aventura");
-//   } else if (locomocao == Transporte.bike){
-//      print("Vou de bike para aventura");
-//   } else{
-//       print("Vou para aventura");
-//   }
-
+void escolherMeioTransporte(Transporte locomocao){
 
   switch (locomocao){
     case Transporte.carro:
@@ -38,9 +41,7 @@ void escolherMeioTransporteEnum(Transporte locomocao){
       break;
       
   }
- }
- 
-
+}
 enum Transporte{
   carro,
   bike,
