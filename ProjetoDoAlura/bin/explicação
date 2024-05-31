@@ -1,33 +1,49 @@
 import 'dart:convert';
 
 void main() {
-  // Declaração de variáveis para uma fruta.
+  // Declaração de variáveis
   String nome = "Laranja";
   double peso = 100.2;
   String cor = "Verde e Amarela";
   String sabor = "Doce e cítrica";
   int diasDesdeColheita = 40;
-  bool? isMadura; // Variável que pode ser nula (null).
+  bool? isMadura;
 
-  // Verifica se a fruta está madura baseado nos dias desde a colheita.
+  // Determina se a fruta está madura com base nos dias desde a colheita
   if (diasDesdeColheita >= 30) {
     isMadura = true;
   } else {
     isMadura = false;
   }
+
+  // Cria uma instância da classe Fruta
+  Fruta melancia = Fruta('Melancia', 1500.0, 'Verde', 'Doce', 40); 
+  melancia.estaMadura(43);
+
+  // Cria instâncias das classes Legume, Fruta, Nozes e Citricas
+  Legume legume1 = Legume("Macaxeira", 1200, "Marrom", true);
+  Fruta banana1 = Fruta('Banana', 75, 'Amarela', 'Doce', 20);
+  Nozes noz1 = Nozes('Amendoim', 3.5, "Marrom", "Salgado", 16, 130);
+  Citricas citrica1 = Citricas("Limão", 100, "Verde", "Ácido", 10, 5.0);
+
+  // Chama métodos para imprimir informações sobre os alimentos
+  legume1.printAlimento();
+  banana1.printAlimento();
+  noz1.printAlimento();
+  citrica1.printAlimento();
+
+  // Chama métodos específicos das instâncias
+  legume1.cozinhar(); 
+  banana1.fazerSuco(); 
 }
 
-// Função que verifica se a fruta está madura baseada nos dias desde a colheita.
+// Função para verificar se a fruta está madura
 bool funcEstaMadura(int dias) {
-  if (dias >= 30) {
-    return true;
-  } else {
-    return false;
-  }
+  return dias >= 30;
 }
 
-// Função que exibe se a fruta está madura e a cor dela.
-mostrarMadura(String nome, int dias, {required String cor}) {
+// Função para mostrar se a fruta está madura e sua cor
+void mostrarMadura(String nome, int dias, {required String cor}) {
   if (dias >= 30) {
     print("A $nome está madura.");
   } else {
@@ -36,26 +52,38 @@ mostrarMadura(String nome, int dias, {required String cor}) {
   print("A $nome é $cor.");
 }
 
-// Função que calcula quantos dias faltam para a fruta estar madura.
+// Função para calcular quantos dias faltam para a fruta amadurecer
 int funcQuantosDiasMadura(int dias) {
   int diasParaMadura = 30;
-  int quantosDiasFaltam = diasParaMadura - dias;
-  return quantosDiasFaltam;
+  return diasParaMadura - dias;
 }
 
-// Classe Fruta que herda de Alimento.
+// Classe base para alimentos
+class Alimento {
+  String nome;
+  double peso;
+  String cor;
+
+  Alimento(this.nome, this.peso, this.cor);
+
+  // Método para imprimir informações sobre o alimento
+  void printAlimento() {
+    print("Este/a $nome pesa $peso gramas e é $cor.");
+  }
+}
+
+// Classe Fruta que herda de Alimento
 class Fruta extends Alimento {
   String sabor;
   int diasDesdeColheita;
   bool? isMadura;
 
-  // Construtor da classe Fruta que inicializa os atributos.
   Fruta(
-    String nome, double peso, String cor, this.sabor, this.diasDesdeColheita,
+      String nome, double peso, String cor, this.sabor, this.diasDesdeColheita,
       {this.isMadura})
       : super(nome, peso, cor);
 
-  // Método para verificar se a fruta está madura.
+  // Método para verificar se a fruta está madura
   void estaMadura(int diasParaMadura) {
     isMadura = diasDesdeColheita >= diasParaMadura;
     print('A sua $nome foi colhida a $diasDesdeColheita dias e precisa de'
@@ -63,68 +91,72 @@ class Fruta extends Alimento {
         'Ela está Madura? $isMadura');
   }
 
-  // Método para simular a ação de fazer suco.
+  // Método para fazer suco da fruta
   void fazerSuco() {
-    print('Você fez um ótimo refrigerante de $nome');
+    print("Você fez um ótimo suco de $nome");
   }
 }
 
-// Classe Alimento, base para outras classes de alimentos.
-class Alimento {
-  String nome;
-  double peso;
-  String cor;
-
-  // Construtor da classe Alimento.
-  Alimento(this.nome, this.peso, this.cor);
-}
-
-// Classe Legumes que herda de Alimento.
-class Legumes extends Alimento {
+// Classe Legume que herda de Alimento e implementa a interface Bolo
+class Legume extends Alimento implements Bolo {
   bool isPrecisaCozinhar;
 
-  // Construtor da classe Legumes.
-  Legumes(String nome, double peso, String cor, this.isPrecisaCozinhar)
-  : super(nome, peso, cor);
+  Legume(String nome, double peso, String cor, this.isPrecisaCozinhar)
+      : super(nome, peso, cor);
 
-  // Método para simular a ação de cozinhar o legume.
+  // Método para cozinhar o legume
   void cozinhar() {
-    if (isPrecisaCozinhar) {
-      print('Pronto, o $nome está cozinhando!');
-    } else {
-      print('Nem precisa cozinhar!');
-    }
+    (isPrecisaCozinhar)
+        ? print("Pronto, o $nome está cozinhado!")
+        : print("Nem precisou cozinhar");
+  }
+
+  @override
+  void separarIngredientes() {
+    print('Pegar a $nome');
+  }
+
+  @override
+  void FazerMassa() {
+    print('Misturar a fruta com Farinha, açucar e ovos...');
+  }
+
+  @override
+  void assar() {
+    print('Colocar no forno');
   }
 }
 
-// Classe Citricas que herda de Fruta.
+// Classe Citricas que herda de Fruta
 class Citricas extends Fruta {
   double nivelAzedo;
 
-  // Construtor da classe Citricas.
-  Citricas(
-    String nome, double peso, String cor, String sabor, int diasDesdeColheita, this.nivelAzedo)
-      : super(nome, peso, cor, sabor, diasDesdeColheita);
+  Citricas(String nome, double peso, String cor, String sabor,
+      int diaDesdeColheita, this.nivelAzedo)
+      : super(nome, peso, cor, sabor, diaDesdeColheita);
 
-  // Método que verifica se existe refrigerante da fruta cítrica.
+  // Método para verificar se existe refrigerante da fruta cítrica
   void existeRefri(bool existe) {
     if (existe) {
-      print('Existe Refrigerante de $nome');
+      print('Existe refri de $nome');
     } else {
-      print('Não existe Refrigerante de $nome');
+      print('Não existe refri de $nome');
     }
   }
 }
 
-// Classe Nozes que herda de Fruta.
+// Classe Nozes que herda de Fruta
 class Nozes extends Fruta {
   double porcentagemOleoNatural;
 
-  // Construtor da classe Nozes.
-  Nozes(String nome, double peso, String cor, String sabor, int diasDesdeColheita,
-    this.porcentagemOleoNatural)
-    : super(nome, peso, cor, sabor, diasDesdeColheita);
+  Nozes(String nome, double peso, String cor, String sabor,
+      int diaDesdeColheita, this.porcentagemOleoNatural)
+      : super(nome, peso, cor, sabor, diaDesdeColheita);
 }
 
-// No código acima, definimos várias classes e funções para representar e manipular alimentos, frutas, legumes e nozes.
-// Usamos conceitos de herança para criar uma hierarquia de classes e métodos para realizar operações específicas em cada tipo de alimento.
+// Interface Bolo com métodos para preparar um bolo
+abstract class Bolo {
+  void separarIngredientes();
+  void FazerMassa();
+  void assar();
+}

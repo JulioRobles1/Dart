@@ -18,13 +18,13 @@ void main() {
   melancia.estaMadura(43);
 
   Legume legume1 = Legume("Macaxeira", 1200, "Marrom", true);
-  Fruta fruta1 = Fruta('Banana', 75, 'Amarela', 'Doce', 20);
+  Fruta banana1 = Fruta('Banana', 75, 'Amarela', 'Doce', 20);
   Nozes noz1 = Nozes('Amendoim', 3.5, "Marrom", "Salgado", 16, 130);
   Citricas citrica1 = Citricas("Limão", 100, "Verde", "Ácido", 10, 5.0);
 
   legume1.printAlimento();
 
-  fruta1.printAlimento();
+  banana1.printAlimento();
 
   noz1.printAlimento();
 
@@ -33,7 +33,7 @@ void main() {
   legume1.cozinhar(); 
 
 
-  fruta1.fazerSuco(); 
+  banana1.fazerSuco(); 
 }
 
 bool funcEstaMadura(int dias) {
@@ -94,7 +94,7 @@ class Alimento {
   }
 }
 
-class Legume extends Alimento {
+class Legume extends Alimento implements Bolo{
   bool isPrecisaCozinhar;
 
   Legume(String nome, double peso, String cor, this.isPrecisaCozinhar)
@@ -105,7 +105,19 @@ class Legume extends Alimento {
         ? print("Pronto, o $nome está cozinhado!")
         : print("Nem precisou cozinhar");
   }
-}
+  @override
+  void separarIngredientes() {
+    print('Pegar a $nome');
+  }
+  @override
+  void FazerMassa() {
+    print('Misturar a fruta com Farinha, açucar e ovos...');
+  }
+  @override
+  void assar() {
+    print('Colocar no forno');
+  }
+  }
 
 class Citricas extends Fruta {
   double nivelAzedo;
